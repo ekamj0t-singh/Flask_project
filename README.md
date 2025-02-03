@@ -4,9 +4,6 @@ This is the beginning of an exciting journey! Our team is kicking off a brand-ne
 
 
 👨‍💻 Team Members
-Aditya Banyal
-Ekamjot Singh
-Aneesh Ranhotra
-Angad Singh Thind
+Aditya Banyal , Ekamjot Singh , Aneesh Ranhotra and Angad Singh Thind
 
 We’re excited to collaborate, learn, and build something great together. Stay tuned for updates! 🚀🔧
