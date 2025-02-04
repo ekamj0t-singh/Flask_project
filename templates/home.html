@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Themed Laptop Store</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <style>
+        /* General Body Styling */
+        body {
+            background-color: #0d1117;
+            color: #c9d1d9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: linear-gradient(90deg, #1f6feb, #11468f);
+            border-bottom: 2px solid #0a0e13;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .navbar-brand, .nav-link {
+            color: #ffffff !important;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #58a6ff !important;
+        }
+
+        /* Header Section */
+        #home {
+            background-color: #161b22;
+            padding: 80px 20px;
+            text-align: center;
+            border-bottom: 2px solid #0a0e13;
+            border-radius: 0 0 25px 25px;
+        }
+        #home h1 {
+            color: #58a6ff;
+            font-size: 3rem;
+            font-weight: bold;
+        }
+        #home p {
+            font-size: 1.2rem;
+            color: #8b949e;
+            margin-top: 10px;
+        }
+
+        /* Products Section */
+        #products {
+            padding: 60px 20px;
+            background-color: #0d1117;
+        }
+        #products h2 {
+            color: #58a6ff;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        .product-card {
+            background-color: #161b22;
+            color: #c9d1d9;
+            border: 1px solid #21262d;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        }
+        .product-card img {
+            border-bottom: 1px solid #21262d;
+            width: 100%;
+            height: auto;
+        }
+        .btn-primary {
+            background-color: #58a6ff;
+            border: none;
+            border-radius: 50px;
+            padding: 10px 20px;
+            transition: background-color 0.2s;
+        }
+        .btn-primary:hover {
+            background-color: #1f6feb;
+        }
+
+        /* Details Section */
+        .details-section {
+            padding: 60px 20px;
+            background-color: #161b22;
+            border-radius: 25px;
+            margin-top: 30px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+        }
+        .details-section img {
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            width: 100%;
+        }
+        .details-section h3 {
+            color: #58a6ff;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        .details-section p {
+            color: #8b949e;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        .video-wrapper video {
+            width: 100%;
+            margin: 20px 0;
+            border-radius: 15px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #161b22;
+            padding: 20px;
+            text-align: center;
+            color: #8b949e;
+            font-size: 0.9rem;
+            border-top: 1px solid #21262d;
+        }
+        .explore {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            text-decoration: none;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+ /* General styling for the video */
+video {
+    display: block;
+    width: 80%;
+    max-width: 800px;
+    margin: 20px auto;
+    border: 4px solid #007BFF;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    opacity: 0; /* For the fade-in animation */
+    transform: scale(0.8); /* Starting scale for the fade-in effect */
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    animation: fadeIn 1.5s forwards;
+}
+
+/* Fade-in animation on page load */
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Zoom effect when hovered */
+video:hover {
+    transform: scale(1.05);
+    border-color: #0056b3;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* Add a subtle rotation effect */
+video:active {
+    transform: scale(1.05) rotate(1deg);
+}
+
+
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="#">Laptop Store</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#products">Products</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <div id="home">
+        <h1>Welcome to Our Laptop Store</h1>
+        <p>Your ultimate destination for premium laptops.</p>
+    </div>
+
+    <!-- Products Section -->
+    <div id="products" class="container">
+        <h2>Our Products</h2>
+        <div class="row">
+            <!-- Product 1 -->
+            <div class="col-md-4 mb-4">
+                <div class="product-card">
+                    <img src="https://lsmedia.linker-cdn.net/266980/2022/7445415.jpeg?d=400x400" alt="Asus Zephyrus">
+                    <div class="card-body">
+                        <h5 class="card-title">Asus Zephyrus</h5>
+                        <p class="card-text">High-performance laptop for gaming.</p>
+                        <a href="#product1" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Product 2 -->
+            <div class="col-md-4 mb-4">
+                <div class="product-card">
+                    <img src="https://m.media-amazon.com/images/I/71M2ZxGSUBL.SX679.jpg" alt="Asus ZenBook">
+                    <div class="card-body">
+                        <h5 class="card-title">Asus ZenBook</h5>
+                        <p class="card-text">AI-powered laptop for graphic designing.</p>
+                        <a href="#product2" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Product 3 -->
+            <div class="col-md-4 mb-4">
+                <div class="product-card">
+                    <img src="https://m.media-amazon.com/images/I/71uE0b9BpiL.SX679.jpg" alt="Asus VivoBook">
+                    <div class="card-body">
+                        <h5 class="card-title">Asus VivoBook</h5>
+                        <p class="card-text">Best for office work.</p>
+                        <a href="#product3" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Details Sections -->
+    <!-- Product 1 Details -->
+    <div id="product1" class="container details-section">
+        <h2>Asus Zephyrus</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <img src="https://rog.asus.com/media/1640743884571.jpg" alt="Asus Zephyrus">
+            </div>
+            <div class="col-md-6">
+                <h3>Description</h3>
+                <p>The ASUS ROG Zephyrus series is a high-performance line of gaming laptops...</p>
+                <div class="video-wrapper">
+                    <video loop muted autoplay>
+                        <source src="https://dlcdnwebimgs.asus.com/files/media/374F7027-F79C-4971-B4D1-E16F45C0848E/v3/images/large/1x/KV.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <a href="https://youtu.be/nYmYB4E_iJY?feature=shared" target="_blank" rel="noopener" style="display:inline-block; padding:10px 20px; background:#FF0000; color:white; text-decoration:none; border-radius:5px; font-family:Arial, sans-serif;">
+                        ▶ Play Video
+                      </a>
+                      <button class="explore" onclick="location.href='aditya.html'">Explore Product</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Product 2 Details -->
+    <div id="product2" class="container details-section">
+        <h2>Asus ZenBook</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <img src="https://dlcdnwebimgs.asus.com/gain/12bea46b-8c0a-4078-b6c5-263b6c722848/" alt="Asus ZenBook">
+            </div>
+            <div class="col-md-6">
+                <h3>Description</h3>
+                <p>The ASUS ZenBook series is a premium lineup of ultrabooks known for their sleek design...</p>
+                <div class="video-wrapper">
+                    <video loop muted autoplay>
+                        <source src="https://dlcdnwebimgs.asus.com/files/media/ea5bde46-a344-49d0-8bcc-befd7351d88b/v2/features/images/video/large/wdVideos/wdVideos_1_video.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <a href="https://youtu.be/czlxcz3iugY?feature=shared" target="_blank" rel="noopener" style="display:inline-block; padding:10px 20px; background:#FF0000; color:white; text-decoration:none; border-radius:5px; font-family:Arial, sans-serif;">
+                        ▶ Play Video
+                      </a>
+                      <button class="explore" onclick="location.href='devansh.html'">Explore Product</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product 3 Details -->
+    <div id="product3" class="container details-section">
+        <h2>Asus VivoBook</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <img src="https://dlcdnwebimgs.asus.com/files/media/88b42944-d112-40a1-87a9-5008b5a92f00/v1/features/images/large/1x/s1/main.jpg" alt="Asus VivoBook">
+            </div>
+            <div class="col-md-6">
+                <h3>Description</h3>
+                <p>The ASUS VivoBook series is a line of versatile, budget-friendly laptops designed for everyday use...</p>
+                <div class="video-wrapper">
+                    <video loop muted autoplay>
+                        <source src="https://dlcdnwebimgs.asus.com/files/media/aab96bdb-a681-488e-acd5-bbdfd565d20a/v3/features/images/video/large/s8/s8_video.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <a href="https://youtu.be/mxWGSBKWxI4" target="_blank" rel="noopener" style="display:inline-block; padding:10px 20px; background:#FF0000; color:white; text-decoration:none; border-radius:5px; font-family:Arial, sans-serif;">
+                        ▶ Play Video
+                      </a>
+                      <button class="explore" onclick="location.href='ekam.html'">Explore Product</button> 
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2024 Laptop Store. All rights reserved.
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
