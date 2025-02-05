@@ -17,5 +17,4 @@ then activate virtual environment in repo
 
 
 then run app.py 
-
-adi
+all the pages are gonna link
