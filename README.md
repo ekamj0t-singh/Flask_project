@@ -18,4 +18,4 @@ then activate virtual environment in repo
 
 then run app.py 
 
-,nshckhloycsiosuionc;ilcnmsmmjcksjiiocejij
+adi
