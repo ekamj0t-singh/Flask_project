@@ -16,4 +16,6 @@ Bhai website run karne ke liye first repo clone karo
 then activate virtual environment in repo
 
 
-then run app.py
+then run app.py 
+
+,nshckhloycsiosuionc;ilcnmsmmjcksjiiocejij
