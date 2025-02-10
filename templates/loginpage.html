@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page - Laptop Product Landing</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            background: url("https://img.freepik.com/premium-vector/dark-purple-vector-background-with-dots-lines_6869-1628.jpg?semt=ais_hybrid") no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            display: flex;
+            flex-direction: column; /* Change to column layout */
+            height: 100vh;
+        }
+
+        .login-container {
+            position: relative;
+            width: 350px;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin: auto; /* Center the login container */
+            flex-grow: 1; /* Allow it to grow and take available space */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .blob {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            filter: blur(20px);
+            animation: float 10s infinite ease-in-out;
+        }
+
+        .small-blob {
+            width: 100px;
+            height: 100px;
+            filter: blur(25px);
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            animation: float 10s infinite ease-in-out;
+        }
+
+        .blob-1 {
+            top: -50px;
+            left: -50px;
+            background:  rgba(106, 17, 203, 0.5);
+        }
+
+        .blob-2 {
+            bottom: -50px;
+            right: -50px;
+            background: rgba(39, 117, 252, 0.5);
+        }
+
+        .small-blob-1 {
+            top: -100px;
+            left: -200px;
+            background: black /*rgba(106, 17, 203, 0.5)*/;
+        }
+
+        .small-blob-2 {
+            bottom: -200px;
+            right: -200px;
+            background: black /* rgba(39, 117, 252, 0.5) */;
+        }
+
+        .login-box, .sign-up-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            text-align: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .login-box h2, .sign-up-box h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-control {
+            border-radius: 5px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            width: 100%;
+        }
+
+        .btn {
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background-color: #2575fc;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #1a5bbf;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            border: none;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+        .text-center {
+            margin-top: 15px;
+            color: #333;
+        }
+
+        .text-center a {
+            color: #2575fc;
+            text-decoration: none;
+        }
+
+        .text-center a:hover {
+            text-decoration: underline;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none; /* Disable pointer events by default */
+        }
+
+        .overlay.active {
+            opacity: 1;
+            pointer-events: all; /* Enable pointer events when active */
+        }
+
+        .success-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #2575fc;
+            font-size: 24px;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .success-message.active {
+            opacity: 1;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+            50% {
+                transform: translate(10px, 10px);
+            }
+        }
+        .login-box, .sign-up-box {
+    z-index: 2; /* Ensure forms are above the overlay */
+}
+
+.overlay {
+    z-index: 1; /* Ensure the overlay is below the forms */
+}
+.overlay.active {
+    pointer-events: none;
+}
+.flash-messages {
+            position: fixed; /* Fixed position */
+            bottom: 20px; /* Position at the bottom */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%; /* Adjust width as needed */
+            z-index: 10; /* Ensure it's above other content */
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="login-container">
+        <!-- Blobs -->
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+
+        <!-- Login Box -->
+        <div class="login-box">
+            <h2 class="text-center">Login</h2>
+            <form id="loginForm" action="{{ url_for('login') }}" method="POST">
+
+                <div class="form-group">
+                    <input type="email" id="loginEmail" name="email" class="form-control" placeholder="Email" required>
+
+                </div>
+                <div class="form-group">
+                    <input type="password" id="loginPassword" name="password" class="form-control" placeholder="Password" required>
+
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+                <p class="text-center mt-3">Don't have an account? <a href="#" id="showSignUp">Sign Up</a></p>
+            </form>
+        </div>
+
+        <!-- Sign Up Box -->
+        <div class="sign-up-box" style="opacity: 0; visibility: hidden;">
+            <h2 class="text-center">Sign Up</h2>
+            <form id="signUpForm" action="{{ url_for('signup') }}" method="POST">
+
+                <div class="form-group">
+                    <input type="text" id="signupName" name="name" class="form-control" placeholder="Full Name" required>
+
+                </div>
+                <div class="form-group">
+                    <input type="email" id="signupEmail" name="email" class="form-control" placeholder="Email" required>
+
+                <div class="form-group">
+                    <input type="password" id="signupPassword" name="password" class="form-control" placeholder="Password" required>
+
+                </div>
+                <button type="submit" class="btn btn-success">Sign Up</button>
+                <p class="text-center mt-3">Already have an account? <a href="#" id="showLogin">Login</a></p>
+            </form>
+        </div>
+
+        <!-- Overlay for Animation -->
+        <div class="overlay"></div>
+
+        <!-- Success Message -->
+        <div class="success-message">Login Successful!</div>
+    </div>
+    <div class="flash-messages">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="container">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% endwith %}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            const loginBox = $(".login-box");
+            const signUpBox = $(".sign-up-box");
+            const overlay = $(".overlay");
+            const successMessage = $(".success-message");
+
+            // Show Sign Up Form
+            $("#showSignUp").click(function(e) {
+    e.preventDefault();
+    loginBox.css({ opacity: 0, visibility: "hidden" });
+    signUpBox.css({ opacity: 1, visibility: "visible" });
+});
+
+$("#showLogin").click(function(e) {
+    e.preventDefault();
+    signUpBox.css({ opacity: 0, visibility: "hidden" });
+    loginBox.css({ opacity: 1, visibility: "visible" });
+});
+
+            // Login Form Submission
+            $("#loginForm").submit(function(e) {
+                e.preventDefault();
+                const email = $("#loginEmail").val();
+                const password = $("#loginPassword").val();
+
+                // Basic validation
+                if (email && password) {
+                    overlay.addClass("active");
+                    setTimeout(() => {
+                        successMessage.text("Login Successful!").addClass("active");
+                        setTimeout(() => {
+                            window.location.href = "{{ url_for('home') }}";
+                             // Redirect to home page
+                        }, 1000);
+                    }, 500);
+                } else {
+                    alert("Please fill in all fields.");
+                }
+            });
+
+            // Sign Up Form Submission
+            $("#signUpForm").submit(function(e) {
+                e.preventDefault();
+                const name = $("#signupName").val();
+                const email = $("#signupEmail").val();
+                const password = $("#signupPassword").val();
+
+                // Basic validation
+                if (name && email && password) {
+                    overlay.addClass("active");
+                    setTimeout(() => {
+                        successMessage.text("Sign Up Successful!").addClass("active");
+                        setTimeout(() => {
+                            window.location.href = "home.html"; // Redirect to home page
+                        }, 1000);
+                    }, 500);
+                } else {
+                    alert("Please fill in all fields.");
+                }
+            });
+        });
+    </script>
+</body>
+</html>

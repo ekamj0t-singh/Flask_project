@@ -62,7 +62,7 @@ def signup():
 @app.route("/home")
 def home():
     if "user_id" not in session:
-        flash("Please login first!", "warning")
+        flash("Please signup first!", "danger")
         return redirect(url_for("login"))
     return f"Welcome, {session['user_name']}! This is your home page."
 
