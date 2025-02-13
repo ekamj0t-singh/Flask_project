@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Sign Up</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        }
+        .form-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>User Authentication</h2>
+        <form id="authForm" method="POST" action="/authenticate">
+            <input type="text" class="form-control mb-3" name="username" placeholder="Username" required>
+            <input type="password" class="form-control mb-3" name="password" placeholder="Password" required>
+            <button type="submit" class="btn btn-primary">Login / Sign Up</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("authForm").onsubmit = async function(e) {
+            e.preventDefault();
+            const response = await fetch('/authenticate', {
+                method: 'POST',
+                body: new FormData(this)
+            });
+            const result = await response.text();
+            alert(result);
+        };
+    </script>
+</body>
+</html>
