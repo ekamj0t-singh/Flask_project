@@ -1,89 +1,85 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, redirect, url_for, request, flash
 from flask_sqlalchemy import SQLAlchemy
-from werkzeug.security import generate_password_hash, check_password_hash
-import os
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 
 app = Flask(__name__)
-app.secret_key = os.urandom(24)  # Generate a secure random key
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.db"
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-
+app.config['SECRET_KEY'] = 'your_secret_key'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 db = SQLAlchemy(app)
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
 
-# User Model
-class User(db.Model):
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    email = db.Column(db.String(100), unique=True, nullable=False)
-    password = db.Column(db.String(200), nullable=False)
+    username = db.Column(db.String(150), unique=True, nullable=False)
+    password = db.Column(db.String(150), nullable=False)
 
-# Initialize database properly for Flask 2.3+
-with app.app_context():
-    db.create_all()
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
-# Ensure login is required for all pages except login/signup
-@app.before_request
-def require_login():
-    allowed_routes = ["login", "signup", "static"]
-    if "user_id" not in session and request.endpoint not in allowed_routes:
-        return redirect(url_for("login"))
-
-@app.route("/login", methods=["GET", "POST"])
-def login():
-    if request.method == "POST":
-        email = request.form["email"]
-        password = request.form["password"]
-        user = User.query.filter_by(email=email).first()
-
-        if user and check_password_hash(user.password, password):
-            session["user_id"] = user.id
-            session["user_name"] = user.name
-            flash("Login successful!", "success")
-            return redirect(url_for("home"))  
-        else:
-            flash("Invalid email or password", "danger")
-    return render_template("loginpage.html")
-
-@app.route("/signup", methods=["POST", "GET"])
+@app.route('/signup', methods=['GET', 'POST'])
 def signup():
-    if request.method == "POST":
-        name = request.form["name"]
-        email = request.form["email"]
-        password = request.form["password"]
-
-        existing_user = User.query.filter_by(email=email).first()
-        if existing_user:
-            flash("Email already registered!", "danger")
-            return redirect(url_for("signup"))  # Redirect to signup instead of login
-
-        hashed_password = generate_password_hash(password, method="pbkdf2:sha256")
-        new_user = User(name=name, email=email, password=hashed_password)
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        new_user = User(username=username, password=password)
         db.session.add(new_user)
         db.session.commit()
+        flash('Signup successful! You can now log in.', 'success')
+        return redirect(url_for('login'))
+    return render_template('signup.html')
 
-        flash("Registration successful! You can now log in.", "success")
-        return redirect(url_for("login"))
-    return render_template("signup.html")
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        user = User.query.filter_by(username=username, password=password).first()
+        if user:
+            login_user(user)
+            return redirect(url_for('home'))  # Redirect to home after successful login
+        else:
+            flash('Login failed. Check your username and password.', 'danger')
+    return render_template('loginpage.html')
 
-@app.route("/home")
+@app.route('/home')
+@login_required
 def home():
-    return render_template("home.html")
+    return render_template("home.html")  # Render the home page
 
-@app.route("/logout")
+@app.route('/logout')
+@login_required
 def logout():
-    session.clear()
-    flash("Logged out successfully.", "info")
-    return redirect(url_for("login"))
+    logout_user()
+    return redirect(url_for('login'))
 
-# Dynamic Route for Product Pages
-@app.route("/product/<model>")
-def product_page(model):
-    valid_models = ["zephyrus", "zenbook", "vivobook", "tuf", "strix"]
-    if model in valid_models:
-        return render_template(f"{model}.html")
-    else:
-        flash("Product not found", "danger")  # Flash message for product not found
-        return redirect(url_for("home"))  # Redirect to home instead of returning 404
+@app.route('/')
+def index():
+    return redirect(url_for('login'))  # Redirect to login page
 
-if __name__ == "__main__":
+@app.route('/zephyrus')
+def zephyrus():
+    return render_template('zephyrus.html')
+
+@app.route('/zenbook')
+def zenbook():
+    return render_template('zenbook.html')
+
+@app.route('/vivobook')
+def vivobook():
+    return render_template('vivobook.html')
+
+@app.route('/tuf')
+def tuf():
+    return render_template('tuf.html')
+
+@app.route('/strix')
+def strix():
+    return render_template('strix.html')
+
+if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()  # Create database tables if they don't exist
     app.run(debug=True)

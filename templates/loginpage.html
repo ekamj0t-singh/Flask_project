@@ -215,7 +215,8 @@
         <!-- Login Box -->
         <div class="login-box">
             <h2 class="text-center">Login</h2>
-            <form id="loginForm" action="{{ url_for('login') }}" method="POST">
+            <form id="loginForm" method="POST">
+                <input type="hidden" name="next" value="{{ request.args.get('next') }}">
 
                 <div class="form-group">
                     <input type="email" id="loginEmail" name="email" class="form-control" placeholder="Email" required>
@@ -233,12 +234,13 @@
         <!-- Sign Up Box -->
         <div class="sign-up-box" style="opacity: 0; visibility: hidden;">
             <h2 class="text-center">Sign Up</h2>
-            <form id="signUpForm" action="{{ url_for('signup') }}" method="POST">
+            <form id="signUpForm" method="POST">
 
                 <div class="form-group">
                     <input type="text" id="signupName" name="name" class="form-control" placeholder="Full Name" required>
 
                 </div>
+
                 <div class="form-group">
                     <input type="email" id="signupEmail" name="email" class="form-control" placeholder="Email" required>
 
@@ -259,14 +261,14 @@
     </div>
     <div class="flash-messages">
         {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            <div class="container">
-                {% for category, message in messages %}
-                    <div class="alert alert-{{ category }}">{{ message }}</div>
-                {% endfor %}
-            </div>
-        {% endif %}
-        {% endwith %}
+  {% if messages %}
+    <ul class="flashes">
+      {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -312,8 +314,7 @@ $("#showLogin").click(function(e) {
             });
 
             // Sign Up Form Submission
-            $("#signUpForm").submit(function(e) {
-                e.preventDefault();
+            $("#signUpForm").submit(function() {
                 const name = $("#signupName").val();
                 const email = $("#signupEmail").val();
                 const password = $("#signupPassword").val();
@@ -324,7 +325,7 @@ $("#showLogin").click(function(e) {
                     setTimeout(() => {
                         successMessage.text("Sign Up Successful!").addClass("active");
                         setTimeout(() => {
-                            window.location.href = "home.html"; // Redirect to home page
+                            window.location.href = "{{ url_for('home') }}";
                         }, 1000);
                     }, 500);
                 } else {
