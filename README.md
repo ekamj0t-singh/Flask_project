@@ -6,4 +6,4 @@ This is the beginning of an exciting journey! Our team is kicking off a brand-ne
 👨‍💻 Team Members
 Aditya Banyal, Aneesh Ranhotra, Angad Singh Thind and Ekamjot Singh.
 
-We’re excited to collaborate, learn, and build something great together. Stay tuned for updates!.. 🚀🔧
+We’re excited to collaborate, learn, and build something great together. Stay tuned for updates!..... 🚀🔧
