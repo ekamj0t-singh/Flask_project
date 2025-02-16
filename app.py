@@ -70,7 +70,7 @@ def logout():
     flash("Logged out successfully.", "info")
     return redirect(url_for("login"))
 
-# Product Routes (Inline Login Check)
+
 @app.route("/zephyrus")
 def zephyrus():
     if "user_id" not in session:
