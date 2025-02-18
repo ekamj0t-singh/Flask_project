@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <form id="auth-form" action="{{url_for('login')}}" method="post">
+        <input type="text" name="username" placeholder="Enter your username" required>
+        <input type="password" name="password" placeholder="Enter your password" required>
+        <input type="submit" value="Login" onclick="setAction('login')">
+        <input type="button" value="Register" onclick="setAction('register')">
+    </form>
+
+    <script>
+        function setAction(action) {
+            const form = document.getElementById('auth-form');
+            
+            // Update the action URL based on the button clicked
+            if (action === 'login') {
+                form.action = "{{ url_for('login') }}";
+            } else if (action === 'register') {
+                form.action = "{{ url_for('register') }}";
+            }
+
+            // Submit the form after setting the action
+            form.submit();
+        }
+    </script>
+{% endblock %}
