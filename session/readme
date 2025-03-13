@@ -1,6 +1,6 @@
 Here I am uploading the files in which I have used the session feature in our project, all that's left is , we need to set the css for the session credentials and the associated logout/login buttons on the pages.
 
-I have uploaded all the files, there are changes made in almost all the files according to the requirement of session feature, we need to now set the login/logout button and the user credentials which are shown on each page.
+I have uploaded all the files, there are changes made in almost all the files according to the requirement of session feature, we need to now set the {the way they are shown / CSS} login/logout button and the user credentials which are shown on each page.
 
 The Credentials and the button on each page is shown by the following line of code:
 {% if 'logged_in' in session %}
