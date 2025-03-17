@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laptop Store</title>
+    <title>Dark Themed Laptop Store</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -12,9 +12,7 @@
 
 </head>
 <body>
-    
-    
-
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg">
         <a class="navbar-brand" href="#">Laptop Store</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
@@ -22,31 +20,14 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#products">Products</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}" class="btn btn-primary">Logout</a></li>
                 
-                <li class="nav-item"><a class="nav-link" href="/zephyrus">Zephyrus</a></li>
-                <li class="nav-item"><a class="nav-link" href="/tuf">TUF Gaming</a></li>
-                <li class="nav-item"><a class="nav-link" href="/strix">Strix</a></li>
-                <li class="nav-item"><a class="nav-link" href="/zenbook">ZenBook</a></li>
-                <li class="nav-item"><a class="nav-link" href="/vivobook">VivoBook</a></li>
-    
-                {% if 'logged_in' in session %}
-                    <li class="nav-item"><a href="{{ url_for('logout') }}" class="btn btn-danger">Logout</a></li>
-                {% else %}
-                    <li class="nav-item"><a href="{{ url_for('authenticate') }}" class="btn btn-primary">Login</a></li>
-                {% endif %}
+
             </ul>
         </div>
     </nav>
-    
-
-    <!-- Flash Messages -->
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <div class="alert alert-{{ category }}">{{ message }}</div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
 
     <!-- Home Section -->
     <div id="home">
@@ -140,9 +121,11 @@
                     <a href="https://youtu.be/nYmYB4E_iJY?feature=shared" target="_blank" rel="noopener" style="display:inline-block; padding:10px 20px; background:#FF0000; color:white; text-decoration:none; border-radius:5px; font-family:Arial, sans-serif;">
                         ▶ Play Video
                       </a>
-                      <a href="/zephyrus">
+                    <a href="{{ url_for('zephyrus') }}">
                         <button class="explore">Explore Product</button>
-                    </a>    
+                    </a>
+                    
+                      
                 </div>
             </div>
         </div>
@@ -167,7 +150,7 @@
                         ▶ Play Video
                     </a>
 
-                    <a href="/zenbook">
+                    <a href="{{ url_for('zenbook') }}">
                         <button class="explore">Explore Product </button>
                     </a>
                 </div>
@@ -193,9 +176,11 @@
                     <a href="https://youtu.be/mxWGSBKWxI4" target="_blank" rel="noopener" style="display:inline-block; padding:10px 20px; background:#FF0000; color:white; text-decoration:none; border-radius:5px; font-family:Arial, sans-serif;">
                         ▶ Play Video
                     </a>
-                    <a href="/vivobook">
+
+                    <a href="{{ url_for('vivobook') }}">
                         <button class="explore">Explore Product </button>
                     </a>
+
                 </div>
             </div>
         </div>
@@ -220,9 +205,11 @@
                     <a href="https://youtu.be/NuexSRa2x_s" target="_blank" rel="noopener" style="display:inline-block; padding:10px 20px; background:#FF0000; color:white; text-decoration:none; border-radius:5px; font-family:Arial, sans-serif;">
                         ▶ Play Video
                       </a>
-                      <a href="/tuf">
+                    <a href="{{ url_for('tuf') }}">
                         <button class="explore">Explore Product</button>
-                    </a> 
+                    </a>
+                    
+                      
                 </div>
             </div>
         </div>
@@ -246,34 +233,24 @@
                     <a href="https://youtu.be/Q71XHg8Jf48" target="_blank" rel="noopener" style="display:inline-block; padding:10px 20px; background:#FF0000; color:white; text-decoration:none; border-radius:5px; font-family:Arial, sans-serif;">
                         ▶ Play Video
                       </a>
-                      <a href="/strix">
+                    <a href="{{ url_for('strix') }}">
                         <button class="explore">Explore Product</button>
                     </a>
+                    
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="aise_hi">
-        <ul>
-            <li></li>
-        </ul>
-    </div>
 
     <!-- Footer -->
     <footer>
-        &copy; 2025 Laptop Store. All rights reserved.
+        &copy; 2024 Laptop Store. All rights reserved.
     </footer>
 
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    
-<li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}">Back to Top</a></li>
-
-
-
-
 </body>
 </html>
